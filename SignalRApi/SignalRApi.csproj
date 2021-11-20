@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Microsoft.AspNetCore.SignalR.Common" />
+    <None Remove="Microsoft.AspNetCore.SignalR.Core" />
+    <None Remove="Microsoft.AspNetCore.SignalR.Protocols.Json" />
+    <None Remove="Microsoft.AspNetCore.SignalR" />
+    <None Remove="Microsoft.AspNet.SignalR.Core" />
+    <None Remove="Hub\" />
+    <None Remove="Microsoft.AspNet.SignalR" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hubs\" />
+  </ItemGroup>
+</Project>

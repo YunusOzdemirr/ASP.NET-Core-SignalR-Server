@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1700.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApi", "SignalRApi\SignalRApi.csproj", "{732AC285-7BB4-454B-8577-A620987383B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatSample", "ChatSample\ChatSample.csproj", "{6D87F8EF-297F-4D75-B905-C0E612AD36F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{732AC285-7BB4-454B-8577-A620987383B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732AC285-7BB4-454B-8577-A620987383B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732AC285-7BB4-454B-8577-A620987383B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732AC285-7BB4-454B-8577-A620987383B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D87F8EF-297F-4D75-B905-C0E612AD36F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D87F8EF-297F-4D75-B905-C0E612AD36F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D87F8EF-297F-4D75-B905-C0E612AD36F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D87F8EF-297F-4D75-B905-C0E612AD36F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A6A5CAA-95D8-4BF9-98BD-512AE7B3035B}
+	EndGlobalSection
+EndGlobal
