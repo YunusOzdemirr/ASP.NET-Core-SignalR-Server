@@ -12,11 +12,25 @@
     <None Remove="Microsoft.AspNet.SignalR.Core" />
     <None Remove="Hub\" />
     <None Remove="Microsoft.AspNet.SignalR" />
+    <None Remove="Concrete\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Entities\" />
+    <None Remove="Swashbuckle.AspNetCore.Swagger" />
+    <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
+    <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
+    <None Remove="Swashbuckle.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Hubs\" />
+    <Folder Include="Concrete\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
 </Project>
