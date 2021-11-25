@@ -8,11 +8,10 @@ namespace SignalRApi.Hubs
 {
     public class StockCaller
     {
-        public static Dictionary<string, Stock> _stock =new Dictionary<string, Stock>();
+        public static Dictionary<string, Stock> _stock = new Dictionary<string, Stock>();
 
-        public void AddValue()
+        public Task AddValue()
         {
-
             Random random = new Random();
 
             string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
@@ -22,23 +21,22 @@ namespace SignalRApi.Hubs
                 {
                     symbol = item,
                     price = random.Next(100, 500),
-                    percent = random.NextDouble()
+                    percent = random.NextDouble(),
                 };
                 if (_stock.ContainsKey(stock.symbol))
-                {
                     _stock[stock.symbol] = stock;
-                }
                 else
-                {
-                    _stock.Add(stock.symbol,stock);
-                }
+                    _stock.Add(stock.symbol, stock);
+
             }
+            return Task.CompletedTask;
             //_stock.Add(random.Next(1000, 9999).ToString());
         }
-        public Dictionary<string,Stock> GetValues()
+        public Task<Dictionary<string, Stock>> GetValues()
         {
-            return _stock;
+            return Task.FromResult(_stock);
         }
+
         public void ClearStock()
         {
             _stock.Clear();

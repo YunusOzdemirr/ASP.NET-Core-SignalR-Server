@@ -10,6 +10,8 @@ namespace SignalRApi.Hubs
 {
     public class MyHub : Hub
     {
+        public static int i = 0;
+
         public readonly StockCaller _stock;
 
         public MyHub(StockCaller stock)
@@ -22,15 +24,21 @@ namespace SignalRApi.Hubs
             //TcpServer can be useable
             while (true)
             {
-                _stock.AddValue();
-               // await Clients.All.SendAsync("receiveMessage", "FromYunus", abc);
-                var result = _stock.GetValues();
-                await Clients.All.SendAsync("receiveMessage", result);
-                Thread.Sleep(500);
+               int value= await add();
+                // await Clients.All.SendAsync("receiveMessage", "FromYunus", abc);
+                var result =await _stock.GetValues();
+                await Clients.All.SendAsync("receiveMessage", result,value);
             }
             //_stock.AddValue();
 
         }
+        public async Task<int> add()
+        {
+            i++;
+            await _stock.AddValue();
+            return await Task.FromResult(i);
+        }
+
         public async Task Send(string name, string message)
         {
             // Call the broadcastMessage method to update clients.
