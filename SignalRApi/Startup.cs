@@ -34,6 +34,8 @@ namespace SignalRApi
             //        builder.WithOrigins("https://localhost:5001", "http://localhost:10896").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             //    });
             //});
+            services.AddSingleton<StockCaller>();
+
             services.AddCors(options => options.AddDefaultPolicy(policy =>
               policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true)));
             services.AddSwaggerGen(c =>

@@ -1,33 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.AspNetCore.SignalR;
 
 namespace SignalRApi.Hubs
 {
     public class MyHub : Hub
     {
-        public async Task<int> SendRandomCharacter()
+        public readonly StockCaller _stock;
+
+        public MyHub(StockCaller stock)
+        {
+            _stock = stock;
+        }
+
+        public async Task SendRandomCharacter()
         {
             //TcpServer can be useable
             while (true)
             {
-                Random random = new Random();
-                var abc = random.Next(10000, 99999);
-                await Clients.All.SendAsync("receiveMessage", "FromYunus", abc);
-                Thread.Sleep(300);
-                return abc;
+                _stock.AddValue();
+               // await Clients.All.SendAsync("receiveMessage", "FromYunus", abc);
+                var result = _stock.GetValues();
+                await Clients.All.SendAsync("receiveMessage", result);
+                Thread.Sleep(500);
             }
-        }
-        public async Task GetChar()
-        {
-            // await Clients.All.SendAsync("ReceiveNames", Names);
+            //_stock.AddValue();
+
         }
         public async Task Send(string name, string message)
         {
             // Call the broadcastMessage method to update clients.
             await Clients.All.SendAsync("broadcastMessage2", name, message);
+        }
+        private void TimerCallback(Object o, ElapsedEventArgs e)
+        {
+            // Display the date/time when this method got called.
+            _stock.ClearStock();
         }
     }
 }
