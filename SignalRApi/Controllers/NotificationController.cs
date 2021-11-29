@@ -27,15 +27,16 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult SendNotificationToClient(Notification notification)
         {
-            _hubContext.Clients.All.SendAsync("sendNotification", notification.Title,notification.Message,notification.SendDate);
+            _hubContext.Clients.All.SendAsync("sendNotification", notification.Title, notification.Message, notification.SendDate);
             return Ok();
         }
 
         [HttpGet("get")]
         public IActionResult getvalues()
         {
-          //  _hubContext.Clients.All.SendAsync("sendNotification", _caller.GetValues());
-            return Ok();
+            var abc = _caller.GetValues();
+               _hubContext.Clients.All.SendAsync("sendNotification", abc);
+            return Ok(abc);
         }
     }
 }

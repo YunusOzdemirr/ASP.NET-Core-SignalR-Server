@@ -24,19 +24,10 @@ namespace SignalRApi.Hubs
         {
             while (true)
             {
-               // var result = _stock.GetValues();
-                var result2 = _stock.GetValues2();
-               // await Clients.All.SendAsync("receiveMessage", result);
-                await Clients.All.SendAsync("receiveMessage", result2);
+                var result = _stock.GetValues();
+                await Clients.All.SendAsync("receiveMessage", result);
                 Thread.Sleep(200);
             }
-            //_stock.AddValue();
-        }
-
-        public async Task Send(string name, string message)
-        {
-            // Call the broadcastMessage method to update clients.
-            await Clients.All.SendAsync("broadcastMessage2", name, message);
         }
         
     }

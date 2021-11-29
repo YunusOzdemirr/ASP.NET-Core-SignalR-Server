@@ -54,11 +54,8 @@ namespace SignalRApi.Hubs
             await Task.CompletedTask;
             _marketStateLock.Release();
         }
-        public async Task<IEnumerable<Stock>> GetValues()
-        {
-            return await Task.FromResult(_stocks.Values);
-        }
-        public IEnumerable<Stock> GetValues2()
+       
+        public IEnumerable<Stock> GetValues()
         {
             return _stocks.Values;
         }
