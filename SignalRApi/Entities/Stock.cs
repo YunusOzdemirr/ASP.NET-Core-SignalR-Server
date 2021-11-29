@@ -5,7 +5,6 @@ namespace SignalRApi.Entities
     {
         public string symbol { get; set; }
         public double price{ get; set; }
-        public double percent { get; set; }
     }
 }
 

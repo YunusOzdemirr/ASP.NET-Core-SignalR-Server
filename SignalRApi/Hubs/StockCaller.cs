@@ -35,7 +35,6 @@ namespace SignalRApi.Hubs
                     {
                         symbol = item,
                         price = random.Next(100, 500),
-                        percent = random.NextDouble(),
                     };
                     await AddValueAsync(stock);
                 }

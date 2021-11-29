@@ -27,6 +27,11 @@ namespace SignalRApi.Hubs
                 var result = _stock.GetValues();
                 await Clients.All.SendAsync("receiveMessage", result);
                 Thread.Sleep(200);
+                //foreach (var item in result)
+                //{
+                //    await Clients.All.SendAsync("receiveMessage", item);
+                //    Thread.Sleep(200);
+                //}
             }
         }
         
