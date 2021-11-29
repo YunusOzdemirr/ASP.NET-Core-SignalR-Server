@@ -19,6 +19,8 @@
     <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
     <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
     <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="System.Reactive" />
+    <None Remove="System.Reactive.Linq" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
@@ -26,6 +28,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Hubs\" />

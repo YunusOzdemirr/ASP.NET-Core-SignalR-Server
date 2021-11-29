@@ -15,9 +15,11 @@ namespace SignalRApi.Controllers
     public class NotificationController : Controller
     {
         private IHubContext<NotificationHub> _hubContext { get; set; }
-        public NotificationController(IHubContext<NotificationHub> hubcontext)
+        private StockCaller _caller;
+        public NotificationController(IHubContext<NotificationHub> hubcontext, StockCaller caller)
         {
             _hubContext = hubcontext;
+            _caller = caller;
         }
         // GET: api/values
 
@@ -26,6 +28,13 @@ namespace SignalRApi.Controllers
         public IActionResult SendNotificationToClient(Notification notification)
         {
             _hubContext.Clients.All.SendAsync("sendNotification", notification.Title,notification.Message,notification.SendDate);
+            return Ok();
+        }
+
+        [HttpGet("get")]
+        public IActionResult getvalues()
+        {
+          //  _hubContext.Clients.All.SendAsync("sendNotification", _caller.GetValues());
             return Ok();
         }
     }

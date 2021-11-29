@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.AspNetCore.SignalR;
+using SignalRApi.Entities;
 
 namespace SignalRApi.Hubs
 {
@@ -19,24 +20,17 @@ namespace SignalRApi.Hubs
             _stock = stock;
         }
 
-        public async Task SendRandomCharacter()
+        public async Task<bool> SendRandomCharacter()
         {
-            //TcpServer can be useable
             while (true)
             {
-               int value= await add();
-                // await Clients.All.SendAsync("receiveMessage", "FromYunus", abc);
-                var result =await _stock.GetValues();
-                await Clients.All.SendAsync("receiveMessage", result,value);
+               // var result = _stock.GetValues();
+                var result2 = _stock.GetValues2();
+               // await Clients.All.SendAsync("receiveMessage", result);
+                await Clients.All.SendAsync("receiveMessage", result2);
+                Thread.Sleep(200);
             }
             //_stock.AddValue();
-
-        }
-        public async Task<int> add()
-        {
-            i++;
-            await _stock.AddValue();
-            return await Task.FromResult(i);
         }
 
         public async Task Send(string name, string message)
@@ -44,11 +38,7 @@ namespace SignalRApi.Hubs
             // Call the broadcastMessage method to update clients.
             await Clients.All.SendAsync("broadcastMessage2", name, message);
         }
-        private void TimerCallback(Object o, ElapsedEventArgs e)
-        {
-            // Display the date/time when this method got called.
-            _stock.ClearStock();
-        }
+        
     }
 }
 

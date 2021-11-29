@@ -1,47 +1,67 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Reactive.Subjects;
 using SignalRApi.Entities;
 
 namespace SignalRApi.Hubs
 {
     public class StockCaller
     {
-        public static Dictionary<string, Stock> _stock = new Dictionary<string, Stock>();
-
-        public Task AddValue()
+        private readonly SemaphoreSlim _marketStateLock = new SemaphoreSlim(1, 1);
+        public static ConcurrentDictionary<string, Stock> _stocks = new ConcurrentDictionary<string, Stock>();
+        public StockCaller()
         {
-            Random random = new Random();
+            //Thread thread1 = new Thread(new ThreadStart(AddValue));
+            //thread1.Start();
+            _marketStateLock.WaitAsync();
+            AddValue();
+            _marketStateLock.Release();
 
+        }
+
+        public async void AddValue()
+        {
             string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
-            foreach (var item in symbols)
+            while (true)
             {
-                Stock stock = new Stock()
+                Random random = new Random();
+                foreach (var item in symbols)
                 {
-                    symbol = item,
-                    price = random.Next(100, 500),
-                    percent = random.NextDouble(),
-                };
-                if (_stock.ContainsKey(stock.symbol))
-                    _stock[stock.symbol] = stock;
-                else
-                    _stock.Add(stock.symbol, stock);
-
+                    Stock stock = new Stock()
+                    {
+                        symbol = item,
+                        price = random.Next(100, 500),
+                        percent = random.NextDouble(),
+                    };
+                    await AddValueAsync(stock);
+                }
             }
-            return Task.CompletedTask;
-            //_stock.Add(random.Next(1000, 9999).ToString());
-        }
-        public Task<Dictionary<string, Stock>> GetValues()
-        {
-            return Task.FromResult(_stock);
         }
 
-        public void ClearStock()
+        public async Task AddValueAsync(Stock stock)
         {
-            _stock.Clear();
+            await _marketStateLock.WaitAsync();
+            if (_stocks.ContainsKey(stock.symbol))
+                _stocks[stock.symbol] = stock;
+            else
+                _stocks.TryAdd(stock.symbol, stock);
+            //    _stocks.TryAdd(stock.symbol, stock);
+            //_stocks.TryAdd(stock.symbol, stock);
+            await Task.CompletedTask;
+            _marketStateLock.Release();
         }
-
+        public async Task<IEnumerable<Stock>> GetValues()
+        {
+            return await Task.FromResult(_stocks.Values);
+        }
+        public IEnumerable<Stock> GetValues2()
+        {
+            return _stocks.Values;
+        }
     }
 }
 
