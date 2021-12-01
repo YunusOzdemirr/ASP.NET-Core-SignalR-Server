@@ -14,16 +14,14 @@ namespace SignalRApi.Controllers
     [Route("api/[controller]")]
     public class NotificationController : Controller
     {
-        private IHubContext<NotificationHub> _hubContext { get; set; }
+        private IHubContext<MyHub> _hubContext { get; set; }
         private StockCaller _caller;
-        public NotificationController(IHubContext<NotificationHub> hubcontext, StockCaller caller)
+        public NotificationController(IHubContext<MyHub> hubcontext, StockCaller caller)
         {
             _hubContext = hubcontext;
             _caller = caller;
         }
-        // GET: api/values
 
-        // POST api/values
         [HttpPost]
         public IActionResult SendNotificationToClient(Notification notification)
         {

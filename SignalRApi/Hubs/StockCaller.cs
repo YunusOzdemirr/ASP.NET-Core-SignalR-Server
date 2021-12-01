@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Reactive.Subjects;
 using SignalRApi.Entities;
+using System.Threading.Channels;
 
 namespace SignalRApi.Hubs
 {
@@ -18,13 +19,23 @@ namespace SignalRApi.Hubs
             //Thread thread1 = new Thread(new ThreadStart(AddValue));
             //thread1.Start();
             _marketStateLock.WaitAsync();
-            AddValue();
+           // AddValue();
             _marketStateLock.Release();
 
         }
 
-        public async void AddValue()
+        public ChannelReader<Stock> DelayCounter(int delay)
         {
+            var channel = Channel.CreateUnbounded<Stock>();
+
+            _ = WriteItems(channel.Writer, delay);
+
+            return channel.Reader;
+        }
+
+        private async Task WriteItems(ChannelWriter<Stock> writer, int delay)
+        {
+
             string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
             while (true)
             {
@@ -36,7 +47,8 @@ namespace SignalRApi.Hubs
                         symbol = item,
                         price = random.Next(100, 500),
                     };
-                    await AddValueAsync(stock);
+                    await writer.WriteAsync(stock);
+                    await Task.Delay(delay);
                 }
             }
         }

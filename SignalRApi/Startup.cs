@@ -92,7 +92,6 @@ namespace SignalRApi
                 endpoints.MapControllers();
                 //http://localhost:4400/Myhub  
                 endpoints.MapHub<MyHub>("/MyHub");
-                endpoints.MapHub<NotificationHub>("/NotificationHub");
             });
         }
     }

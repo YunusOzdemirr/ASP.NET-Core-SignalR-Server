@@ -12,8 +12,6 @@
     <None Remove="Microsoft.AspNet.SignalR.Core" />
     <None Remove="Hub\" />
     <None Remove="Microsoft.AspNet.SignalR" />
-    <None Remove="Concrete\" />
-    <None Remove="Interfaces\" />
     <None Remove="Entities\" />
     <None Remove="Swashbuckle.AspNetCore.Swagger" />
     <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
@@ -33,8 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Hubs\" />
-    <Folder Include="Concrete\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Entities\" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.AspNetCore.SignalR;
@@ -34,7 +35,34 @@ namespace SignalRApi.Hubs
                 //}
             }
         }
-        
+        public ChannelReader<Stock> DelayCounter(int delay)
+        {
+            var channel = Channel.CreateUnbounded<Stock>();
+
+            _ = WriteItems(channel.Writer, delay);
+
+            return channel.Reader;
+        }
+
+        private async Task WriteItems(ChannelWriter<Stock> writer, int delay)
+        {
+
+            string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
+            while (true)
+            {
+                Random random = new Random();
+                foreach (var item in symbols)
+                {
+                    Stock stock = new Stock()
+                    {
+                        symbol = item,
+                        price = random.Next(100, 500),
+                    };
+                    await writer.WriteAsync(stock);
+                    await Task.Delay(delay);
+                }
+            }
+        }
     }
 }
 
