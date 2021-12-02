@@ -35,6 +35,7 @@ namespace SignalRApi
             //    });
             //});
             services.AddSingleton<StockCaller>();
+            services.AddSingleton<MyHub>();
             services.AddCors(options => options.AddDefaultPolicy(policy =>
               policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true)));
             services.AddSwaggerGen(c =>

@@ -15,26 +15,28 @@ namespace SignalRApi.Controllers
     public class NotificationController : Controller
     {
         private IHubContext<MyHub> _hubContext { get; set; }
+        private readonly MyHub MyHub;
         private StockCaller _caller;
-        public NotificationController(IHubContext<MyHub> hubcontext, StockCaller caller)
+        public NotificationController(IHubContext<MyHub> hubcontext, StockCaller caller, MyHub myHub)
         {
             _hubContext = hubcontext;
             _caller = caller;
+            MyHub = myHub;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult SendNotificationToClient(Notification notification)
         {
-            _hubContext.Clients.All.SendAsync("sendNotification", notification.Title, notification.Message, notification.SendDate);
+            //_hubContext.Clients.All.SendAsync("sendNotification", notification.Title, notification.Message, notification.SendDate);
+            //var abc=MyHub.DelayCounter(500);
             return Ok();
         }
 
         [HttpGet("get")]
         public IActionResult getvalues()
         {
-            var abc = _caller.GetValues();
-               _hubContext.Clients.All.SendAsync("sendNotification", abc);
-            return Ok(abc);
+           // var abc = MyHub.DelayCounter(500);
+            return Ok();
         }
     }
 }

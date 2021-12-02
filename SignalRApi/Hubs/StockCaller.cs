@@ -19,9 +19,27 @@ namespace SignalRApi.Hubs
             //Thread thread1 = new Thread(new ThreadStart(AddValue));
             //thread1.Start();
             _marketStateLock.WaitAsync();
-           // AddValue();
+            AddValue();
             _marketStateLock.Release();
 
+        }
+        private async Task AddValue()
+        {
+
+            string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
+            while (true)
+            {
+                Random random = new Random();
+                foreach (var item in symbols)
+                {
+                    Stock stock = new Stock()
+                    {
+                        symbol = item,
+                        price = random.Next(100, 500),
+                    };
+                    await AddValueAsync(stock);
+                }
+            }
         }
 
         public ChannelReader<Stock> DelayCounter(int delay)
@@ -33,7 +51,7 @@ namespace SignalRApi.Hubs
             return channel.Reader;
         }
 
-        private async Task WriteItems(ChannelWriter<Stock> writer, int delay)
+        private async Task WriteItems(ChannelWriter<Stock> writer,int delay)
         {
 
             string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };

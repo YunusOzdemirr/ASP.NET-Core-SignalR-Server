@@ -27,18 +27,13 @@ namespace SignalRApi.Hubs
             {
                 var result = _stock.GetValues();
                 await Clients.All.SendAsync("receiveMessage", result);
-                Thread.Sleep(200);
-                //foreach (var item in result)
-                //{
-                //    await Clients.All.SendAsync("receiveMessage", item);
-                //    Thread.Sleep(200);
-                //}
+                await Task.Delay(1000);
             }
         }
-        public ChannelReader<Stock> DelayCounter(int delay)
+        //stream etmen gereken method bu PriceLogStream diğer method zaten private.
+        public ChannelReader<Stock> PriceLogStream(int delay)
         {
             var channel = Channel.CreateUnbounded<Stock>();
-
             _ = WriteItems(channel.Writer, delay);
 
             return channel.Reader;
@@ -46,7 +41,6 @@ namespace SignalRApi.Hubs
 
         private async Task WriteItems(ChannelWriter<Stock> writer, int delay)
         {
-
             string[] symbols = new string[6] { "USD", "EUR", "ATLAS", "GARAN", "ISBNK", "AKBNK" };
             while (true)
             {
