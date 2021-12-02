@@ -27,13 +27,6 @@ namespace SignalRApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy", builder =>
-            //    {
-            //        builder.WithOrigins("https://localhost:5001", "http://localhost:10896").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
-            //    });
-            //});
             services.AddSingleton<StockCaller>();
             services.AddSingleton<MyHub>();
             services.AddCors(options => options.AddDefaultPolicy(policy =>
